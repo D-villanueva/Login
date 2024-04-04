@@ -4,16 +4,17 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
+import com.example.login.databinding.ActivityAppBinding
 
 class AppActivity : AppCompatActivity() {
-    private lateinit var txtGetUsuario: TextView
+    private lateinit var binding: ActivityAppBinding
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_app)
-
-        txtGetUsuario = findViewById(R.id.txtGetUsuario)
-
-        txtGetUsuario.text= intent?.extras?.getString("user")
+        binding = ActivityAppBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.txtGetUsuario.text = intent?.extras?.getString("user")
     }
 }

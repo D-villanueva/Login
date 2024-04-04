@@ -6,28 +6,25 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.login.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var txtPassword: EditText
-    private lateinit var txtUser: EditText
-    private lateinit var btnLogin: Button
+    private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        txtUser = findViewById(R.id.txtUser)
-        txtPassword = findViewById(R.id.txtPassword)
-        btnLogin = findViewById(R.id.btnLogin)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         login()
     }
 
     private fun login() {
-        btnLogin.setOnClickListener() {
-            val user = txtUser.text.toString()
-            val pass = txtPassword.text.toString()
+        binding.btnLogin.setOnClickListener() {
+            val user = binding.txtUser.text.toString()
+            val pass = binding.txtPassword.text.toString()
 
                 val intent = Intent(this, AppActivity::class.java)
                 intent.putExtra("user", user)
-                this.startActivity(intent)
+                startActivity(intent)
 
 
         }

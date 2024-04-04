@@ -7,6 +7,9 @@ android {
     namespace = "com.example.login"
     compileSdk = 34
 
+    viewBinding {
+        enable = true
+    }
 
     defaultConfig {
         applicationId = "com.example.login"
