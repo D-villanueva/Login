@@ -6,27 +6,23 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.FragmentContainerView
 import com.example.login.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
+    //private lateinit var container: FragmentContainerView
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //container = findViewById(R.id.LoginContainer)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        login()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.LoginContainer ,LoginFragment())
+            .commit()
     }
 
-    private fun login() {
-        binding.btnLogin.setOnClickListener() {
-            val user = binding.txtUser.text.toString()
-            val pass = binding.txtPassword.text.toString()
-
-                val intent = Intent(this, AppActivity::class.java)
-                intent.putExtra("user", user)
-                startActivity(intent)
 
 
-        }
-    }
 }

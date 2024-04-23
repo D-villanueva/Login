@@ -16,5 +16,6 @@ class AppActivity : AppCompatActivity() {
         binding = ActivityAppBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.txtGetUsuario.text = intent?.extras?.getString("user")
+
     }
 }
