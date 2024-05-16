@@ -7,22 +7,27 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.FragmentContainerView
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph
+import androidx.navigation.fragment.NavHostFragment
 import com.example.login.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     //private lateinit var container: FragmentContainerView
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        //container = findViewById(R.id.LoginContainer)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.LoginContainer ,LoginFragment())
-            .commit()
+        initializeNavigation()
     }
 
+private fun initializeNavigation(){
+    val navHostFragment =
+       supportFragmentManager.findFragmentById(R.id.nav_fragmentHost) as NavHostFragment
 
+    navController = navHostFragment.navController
+}
 
 }
