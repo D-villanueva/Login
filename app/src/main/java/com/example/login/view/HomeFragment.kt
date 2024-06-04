@@ -1,4 +1,4 @@
-package com.example.login
+package com.example.login.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.example.login.databinding.FragmentHomeBinding
+import com.example.login.view.LoginFragment
+import com.example.login.view.LoginFragmentArgs
 
 class HomeFragment : Fragment() {
    private var _binding : FragmentHomeBinding? = null

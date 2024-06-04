@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.login.LoginFragment"
+        android:name="com.example.login.view.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -16,7 +16,7 @@
             app:popUpToInclusive="false" />
         <argument
             android:name="Users"
-            app:argType="com.example.login.Users" />
+            app:argType="com.example.login.model.Users" />
         <action
             android:id="@+id/action_loginFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
@@ -24,18 +24,22 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.login.HomeFragment"
+        android:name="com.example.login.view.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
 
         <argument
             android:name="Users"
-            app:argType="com.example.login.Users" />
+            app:argType="com.example.login.model.Users" />
     </fragment>
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.login.SignInFragment"
+        android:name="com.example.login.view.SignInFragment"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" />
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>
