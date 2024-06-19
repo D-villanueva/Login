@@ -1,4 +1,4 @@
-package com.example.login.view
+package com.example.login.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,14 +9,12 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.login.R
 import com.example.login.databinding.FragmentSignInBinding
-import com.example.login.model.Users
-import com.example.login.presenter.LoginPresenter
-import com.example.login.presenter.LoginPresenterImp
 import com.example.login.presenter.SignInPresenter
 import com.example.login.presenter.SignInPresenterImp
+import com.example.login.view.SignInView
 
 
-class SignInFragment :SignInView, Fragment() {
+class SignInFragment : SignInView, Fragment() {
     private var _binding : FragmentSignInBinding? = null
     private val binding get() = _binding!!
     private var presenter: SignInPresenter = SignInPresenterImp(this)
