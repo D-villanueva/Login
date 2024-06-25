@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.example.login.Data.UserDB
 import com.example.login.R
 import com.example.login.databinding.FragmentLoginBinding
+import com.example.login.model.LoginData
 import com.example.login.model.Users
-import com.example.login.presenter.LoginPresenter
-import com.example.login.presenter.LoginPresenterImp
 import com.example.login.view.LoginView
 
 
-class LoginFragment : LoginView, Fragment() {
+class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LoginViewModel by viewModels()
@@ -40,6 +40,7 @@ class LoginFragment : LoginView, Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeListeners()
+
     }
 
     private fun initializeListeners() {
@@ -47,6 +48,7 @@ class LoginFragment : LoginView, Fragment() {
             val username = binding.txtUser.text.toString()
             val password = binding.txtPassword.text.toString()
             viewModel.validarUsuario(username, password)
+            initializeObserver()
         }
 
         binding.btnSignIn.setOnClickListener {
@@ -55,8 +57,33 @@ class LoginFragment : LoginView, Fragment() {
         }
     }
 
-    private fun observer() {
-        viewModel.
+    //private fun observer() {
+    //   viewModel.loginData.observe(viewLifecycleOwner){loginData -> when (loginData){
+    //       LoginData.Default -> Toast.makeText(context, "Error no identificado", Toast.LENGTH_LONG).show()
+    //       LoginData.EmptyLogin -> Toast.makeText(context, "Ingrese datos en el formulario", Toast.LENGTH_LONG).show()
+
+    //       LoginData.EmptyUser -> Toast.makeText(context, "Ingrese un usuario valido", Toast.LENGTH_LONG).show()
+    //       LoginData.UserNotFound -> Toast.makeText(context, "El usuario no existe", Toast.LENGTH_LONG).show()
+    //       LoginData.WrongPass -> Toast.makeText(context, "Password incorrecto", Toast.LENGTH_LONG).show()
+    //       is LoginData.LoginSuccess -> {
+    //           val destination =
+    //               LoginFragmentDirections.actionLoginFragmentToHomeFragment(loginData.users)
+    //           view?.findNavController()?.navigate(destination)
+    //       }
+
+    //       is LoginData.EmptyPassword -> Toast.makeText(context, loginData.error, Toast.LENGTH_LONG).show()
+    //   } }
+    //}
+
+    private fun initializeObserver() {
+        viewModel.errorMsg.observe(viewLifecycleOwner) { error ->
+            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        }
+        viewModel.loginSuccess.observe(viewLifecycleOwner) { user ->
+            val destination =
+                LoginFragmentDirections.actionLoginFragmentToHomeFragment(user)
+            view?.findNavController()?.navigate(destination)
+        }
     }
 
 }

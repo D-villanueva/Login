@@ -9,7 +9,7 @@ data class Users(
     val lastName: String,
     val age: Int,
     val email: String,
-    val password: String,
+    var password: String,
     val active: Boolean
 ):Parcelable
 

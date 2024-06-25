@@ -1,4 +1,6 @@
-package com.example.login.model
+package com.example.login.Data
+
+import com.example.login.model.Users
 
 object UserDB {
     private val Users: MutableList<Users> = mutableListOf()

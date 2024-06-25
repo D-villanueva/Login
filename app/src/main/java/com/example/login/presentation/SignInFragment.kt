@@ -7,17 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.example.login.Data.UserDB
 import com.example.login.R
 import com.example.login.databinding.FragmentSignInBinding
-import com.example.login.presenter.SignInPresenter
-import com.example.login.presenter.SignInPresenterImp
+import com.example.login.model.Users
+
 import com.example.login.view.SignInView
 
 
-class SignInFragment : SignInView, Fragment() {
-    private var _binding : FragmentSignInBinding? = null
+class SignInFragment : Fragment() {
+    private var _binding: FragmentSignInBinding? = null
     private val binding get() = _binding!!
-    private var presenter: SignInPresenter = SignInPresenterImp(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,14 +29,14 @@ class SignInFragment : SignInView, Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentSignInBinding.inflate(inflater,container,false)
+        _binding = FragmentSignInBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeListeners()
-        }
+    }
 
     private fun initializeListeners() {
         binding.btnSignIn.setOnClickListener {
@@ -46,22 +46,13 @@ class SignInFragment : SignInView, Fragment() {
             val ageInt = Integer.parseInt(getAge)
             val email = binding.txtUser.text.toString()
             val password = binding.txtPassword.text.toString()
-            presenter.addUser(name,lastName,ageInt,email,password,true)
+            val newUser = Users(name, lastName, ageInt, email, password, true)
+            UserDB.addUsers(newUser)
         }
 
     }
 
-    override fun success(message: String) {
-        Toast.makeText( requireContext(), message, Toast.LENGTH_SHORT).show()
-        view?.findNavController()?.navigate(R.id.action_signInFragment_to_loginFragment)
-    }
 
-    override fun existent(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-    override fun error(message: String) {
-        Toast.makeText( requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
 }
 
 
