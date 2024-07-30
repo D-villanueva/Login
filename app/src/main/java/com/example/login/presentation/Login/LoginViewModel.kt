@@ -3,9 +3,12 @@ package com.example.login.presentation.Login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.login.Data.UserDB
 import com.example.login.model.LoginData
 import com.example.login.model.Users
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
     //private val data = MutableLiveData<LoginData>()
@@ -14,18 +17,27 @@ class LoginViewModel : ViewModel() {
 
     private val _errorMsg = MutableLiveData<String>()
     val errorMsg: LiveData<String> get() = _errorMsg
-
-    private val _loginSucces = MutableLiveData<Users>()
-    val loginSuccess: LiveData<Users> get() = _loginSucces
+    var job: Job? = null
+    private val _loginSucces = MutableLiveData<Int>()
+    val loginSuccess: LiveData<Int> get() = _loginSucces
     fun validarUsuario(email: String, pass: String) {
 
-        if (email.isEmpty()) _errorMsg.value = "Email vacio"
+
+        if (email.isEmpty() && pass.isEmpty()) _errorMsg.value = "Ingrese datos al formulario"
         else if (pass.isEmpty()) _errorMsg.value = "Password vacio"
         else if (pass.isNotEmpty() && email.isNotEmpty()) {
-            val currentUser = UserDB.getUser(email)
-            currentUser?.let { _loginSucces.value = it}
+            viewModelScope.launch {
+                val currentUser = UserDB.findId(email)
+                if (currentUser != 0)
+                { _loginSucces.value = currentUser}
+                else{_errorMsg.value = "El usuario no existe"}
+            }
+
         }
 
+        fun cancelCoroutine(){
+            job?.cancel()
+        }
 
         //if (email.isEmpty() && pass.isEmpty()) {_loginData.value = LoginData.EmptyLogin}
         //else {

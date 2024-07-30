@@ -7,4 +7,6 @@ interface SignInView {
     fun success(message: String)
     fun existent(message: String)
     fun error(message: String)
+
+    fun indexAssigned(index:Int)
 }

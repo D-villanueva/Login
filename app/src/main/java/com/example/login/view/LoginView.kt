@@ -4,7 +4,7 @@ import android.os.Message
 import com.example.login.model.Users
 
 interface LoginView{
-    fun success(activeUsers:Users)
+    fun success(Index:Int)
     fun error(message: String)
     
 }
